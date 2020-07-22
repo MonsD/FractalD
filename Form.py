@@ -3,17 +3,17 @@ import time
 
 def Registration():
 	time.sleep(1)
-	loggin = str(input("Введите новый логин\n"))
-	password = str(input("Введите новый пароль\n"))
-	f = open('loggin.txt', 'r')
+	login = str(input("Enter a new login\n"))
+	password = str(input("Enter a new password\n"))
+	f = open('login.txt', 'r')
 	f.close()
-	if loggin in loglist:
+	if login in loglist:
 		time.sleep(1)
-		print("Такой логин уже существует")
+		print("This login is already taken")
 		Registration()
 	else:
-		f = open('loggin.txt', 'a')
-		f.write(loggin + ',')
+		f = open('login.txt', 'a')
+		f.write(login + ',')
 		f.close()
 		g = open('password.txt', 'a')
 		g.write(password + ',')
@@ -22,45 +22,45 @@ def Registration():
 
 def Autorisation():
 	time.sleep(1)
-	loggin = str(input("Введите логин\n"))
-	password = str(input("Введите пароль\n"))
+	login = str(input("Enter login\n"))
+	password = str(input("Enter password\n"))
 	try:
-		if password == database[loggin]:
+		if password == database[login]:
 			time.sleep(1)
-			print("Приветствую!")
-			Application()
+			print("Hello!")
+			Application()#Logical continue code
 		else:
 			time.sleep(1)
-			print("Неверный логин или пароль")
+			print("Wrong password or login")
 			Terminal()
-	except KeyError: #Обход ошибок (try - except).
+	except KeyError: # Workaround (try - except).
 		time.sleep(1)
-		print("Неверный логин или пароль")
+		print("Wrong password or login")
 		Terminal()
 
 def Terminal():
-	command = input("Авторизация, регистрация или удаление аккаунта?\n")
-	if command == "Авторизация":
+	command = input("Authorization, registration, rename or remove user??\n")
+	if command == "Autorisation":
 		Autorisation()
-	elif command== "Регистрация":
+	elif command== "Registration":
 		Registration()
-	elif command== "Удаление":
+	elif command== "Remove":
 		Remove()
-	elif command == "Изменить логин":
+	elif command == "Rename":
 		Rename()
 def Remove():
 	time.sleep(1)
 	global loglist
 	global passlist
-	loggin = str(input("Введите логин\n"))
-	if loggin == "Default":
+	login = str(input("Enter login\n"))
+	if login == "Default":
 		time.sleep(2)
-		print("Запрещено")
+		print("Prohibited")
 		time.sleep(1)
 		Terminal()
-	number = loglist.index(loggin)
+	number = loglist.index(login)
 	loglist[number] = 'Deleted'
-	f = open('loggin.txt', 'w')
+	f = open('login.txt', 'w')
 	lenlog = len(loglist)
 	for i in range(0, lenlog):
 		f.write(loglist[i] + ',')
@@ -70,43 +70,43 @@ def Rename():
 	global passlist
 	global database
 	time.sleep(1)
-	loggin = str(input("Введите логин\n"))
-	password = str(input("Введите пароль\n"))
+	login = str(input("Enter login\n"))
+	password = str(input("Enter password\n"))
 	try:
-		if password == database[loggin]:
+		if password == database[login]:
 			time.sleep(1)
-			loggin1 = str(input("Введи желаемый логин"))
-			if loggin1 in loglist:
+			login1 = str(input("Enter new login"))
+			if login1 in loglist:
 				time.sleep(1)
-				print("Такой логин уже существует")
+				print("This login is already taken")
 				Rename()
-			elif loggin1 not in loglist:
-				number = loglist.index(loggin)
-				loglist[number] = loggin1
-				f = open('loggin.txt', 'w')
+			elif login1 not in loglist:
+				number = loglist.index(login)
+				loglist[number] = login1
+				f = open('login.txt', 'w')
 				lenlog = len(loglist)
 				for i in range(0, lenlog):
 					f.write(loglist[i] + ',')
 				f.close()
 		else:
 			time.sleep(1)
-			print("Неверный логин или пароль")
+			print("Wrong login or password")
 			Terminal()
-	except KeyError:  # Обход ошибок (try - except).
+	except KeyError:  # Workaround (try - except).
 		time.sleep(1)
-		print("Неверный логин или пароль")
+		print("Wrong login or password")
 		Terminal()
 
 def Application():
 	os.startfile()
 
-f = open('loggin.txt', 'r')
+f = open('login.txt', 'r')
 loglist = f.read().split(",")
 f.close()
 g = open('password.txt', 'r')
 passlist = g.read().split(",")
 g.close()
-mainlist = zip(loglist, passlist)
+mainlist = zip(loglist, passlist) #Pairwise indexing of sheets
 database = dict(mainlist)
 
 Terminal()
