@@ -5,17 +5,17 @@ def Registration():
 	time.sleep(1)
 	loggin = str(input("Введите новый логин\n"))
 	password = str(input("Введите новый пароль\n"))
-	f = open('C:/Users/FlorPs/Desktop/loggin.txt', 'r')
+	f = open('loggin.txt', 'r')
 	f.close()
 	if loggin in loglist:
 		time.sleep(1)
 		print("Такой логин уже существует")
 		Registration()
 	else:
-		f = open('C:/Users/FlorPs/Desktop/loggin.txt', 'a')
+		f = open('loggin.txt', 'a')
 		f.write(loggin + ',')
 		f.close()
-		g = open('C:/Users/FlorPs/Desktop/password.txt', 'a')
+		g = open('password.txt', 'a')
 		g.write(password + ',')
 		g.close()
 	Terminal()
@@ -60,7 +60,7 @@ def Remove():
 		Terminal()
 	number = loglist.index(loggin)
 	loglist[number] = 'Deleted'
-	f = open('C:/Users/FlorPs/Desktop/loggin.txt', 'w')
+	f = open('loggin.txt', 'w')
 	lenlog = len(loglist)
 	for i in range(0, lenlog):
 		f.write(loglist[i] + ',')
@@ -83,7 +83,7 @@ def Rename():
 			elif loggin1 not in loglist:
 				number = loglist.index(loggin)
 				loglist[number] = loggin1
-				f = open('C:/Users/FlorPs/Desktop/loggin.txt', 'w')
+				f = open('loggin.txt', 'w')
 				lenlog = len(loglist)
 				for i in range(0, lenlog):
 					f.write(loglist[i] + ',')
@@ -100,10 +100,10 @@ def Rename():
 def Application():
 	os.startfile()
 
-f = open('C:/Users/FlorPs/Desktop/loggin.txt', 'r')
+f = open('loggin.txt', 'r')
 loglist = f.read().split(",")
 f.close()
-g = open('C:/Users/FlorPs/Desktop/password.txt', 'r')
+g = open('password.txt', 'r')
 passlist = g.read().split(",")
 g.close()
 mainlist = zip(loglist, passlist)
